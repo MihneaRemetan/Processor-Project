@@ -37,7 +37,8 @@ module SoC( // System on Chip
   );
 
   memory_512x16 #(
-    .INIT_FILE("program_asip_mul.hex")
+    .INIT_FILE("SoC/program_asip_mul.hex"),
+    .INIT_WORDS(42)
   ) memory (
       .clk(clk),
       .rst_b(rst_b),

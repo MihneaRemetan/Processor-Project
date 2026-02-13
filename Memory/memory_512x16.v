@@ -1,7 +1,8 @@
 module memory_512x16 #(
     parameter AW = 9,          // address width (512 = 2^9)
     parameter DW = 16,         // data width
-    parameter INIT_FILE = ""   // optional: mem init (hex/binary)
+    parameter INIT_FILE = "",  // optional: mem init (hex/binary)
+    parameter INIT_WORDS = 0   // number of words to read from INIT_FILE (0 = full range)
 )(
     input               clk,
     input               rst_b,
@@ -20,10 +21,12 @@ module memory_512x16 #(
         for (i = 0; i < (1 << AW); i = i + 1)
             mem[i] = {DW{1'b0}};
 
-        if (INIT_FILE != "") 
-        begin
-            $readmemh(INIT_FILE, mem);
-        end 
+        if (INIT_FILE != "") begin
+            if (INIT_WORDS > 0)
+                $readmemh(INIT_FILE, mem, 0, INIT_WORDS - 1);
+            else
+                $readmemh(INIT_FILE, mem);
+        end
     end
 
     // Synchronous read & write (read-after-write same cycle gives new data)

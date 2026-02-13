@@ -5,7 +5,8 @@
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REG_DIR="$(dirname "$SCRIPT_DIR")"
-ALU_DIR="$REG_DIR/../ALU16"
+ROOT_DIR="$REG_DIR/../.."
+ALU_DIR="$ROOT_DIR/Processor/ALU16"
 
 # Include paths
 INCLUDES="-I $ALU_DIR/Combinational/muxes -I $ALU_DIR/Combinational/RCA -I $ALU_DIR/Registers" 
@@ -18,8 +19,9 @@ NC='\033[0m' # No Color
 
 run_pc_test() {
     echo -e "${YELLOW}=== Compilare PC ===${NC}"
-    cd "$REG_DIR"
-    iverilog $INCLUDES -o tb/pc_tb PC.v PC_tb.v \
+    iverilog $INCLUDES -o "$REG_DIR/tb/pc_tb" \
+        "$REG_DIR/PC.v" \
+        "$SCRIPT_DIR/PC_tb.v" \
         "$ALU_DIR/Registers/ffd.v" \
         "$ALU_DIR/Combinational/muxes/mux_2s.v" \
         "$ALU_DIR/Combinational/RCA/RCA.v"
@@ -27,7 +29,7 @@ run_pc_test() {
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}Compilare PC reusita!${NC}"
         echo -e "${YELLOW}=== Rulare PC Testbench ===${NC}"
-        vvp tb/pc_tb
+        vvp "$REG_DIR/tb/pc_tb"
     else
         echo -e "${RED}Eroare la compilare PC!${NC}"
         return 1
@@ -36,8 +38,9 @@ run_pc_test() {
 
 run_sp_test() {
     echo -e "${YELLOW}=== Compilare SP ===${NC}"
-    cd "$REG_DIR"
-    iverilog $INCLUDES -o tb/sp_tb SP.v SP_tb.v \
+    iverilog $INCLUDES -o "$REG_DIR/tb/sp_tb" \
+        "$REG_DIR/SP.v" \
+        "$SCRIPT_DIR/SP_tb.v" \
         "$ALU_DIR/Registers/ffd.v" \
         "$ALU_DIR/Combinational/muxes/mux_2s.v" \
         "$ALU_DIR/Combinational/RCA/RCA.v"
@@ -45,7 +48,7 @@ run_sp_test() {
     if [ $? -eq 0 ]; then
         echo -e "${GREEN}Compilare SP reusita!${NC}"
         echo -e "${YELLOW}=== Rulare SP Testbench ===${NC}"
-        vvp tb/sp_tb
+        vvp "$REG_DIR/tb/sp_tb"
     else
         echo -e "${RED}Eroare la compilare SP!${NC}"
         return 1
