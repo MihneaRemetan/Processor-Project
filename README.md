@@ -1,6 +1,10 @@
-# 16-bit Processor (Structural Verilog)
+<div align="center">
+
+# 16-bit Processor
 
 A custom-built 16-bit processor designed and implemented entirely in **structural Verilog**, focusing on low-level hardware design, modularity, and precise control logic.
+
+</div>
 
 ---
 
