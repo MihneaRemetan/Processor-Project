@@ -1,4 +1,4 @@
-# 🧠 16-bit Processor (Structural Verilog)
+# 16-bit Processor (Structural Verilog)
 
 A custom-built 16-bit processor designed and implemented entirely in **structural Verilog**, focusing on low-level hardware design, modularity, and precise control logic.
 
@@ -202,7 +202,7 @@ The design is modular, allowing independent testing of each component before ful
 | `MOV` | Move data between registers |
 | `MOV #Imm` | Load immediate value |
 
-## 🧪 Verification & Testing
+## Verification & Testing
 
 Each module is tested using **dedicated testbenches**.
 
